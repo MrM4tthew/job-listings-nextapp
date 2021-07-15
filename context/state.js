@@ -3,14 +3,16 @@ import { createContext, useContext, useMemo, useState } from "react";
 export const AppContext = createContext();
 
 export function AppWrapper({ children }) {
-    const [rules, setRules] = useState([])
-    const [click, setClick] = useState([])
+    const [filters, setFilters] = useState([])
 
-    const value = useMemo(() => ({ rules, setRules }), [rules, setRules])
-    const clickState = useMemo(() => ({ click, setClick }), [click, setClick])
+    const handleClick = (tag) => {
+        if (filters.includes(tag)) return;
+        setFilters([...filters, tag])
+    }
+
 
     return (
-        <AppContext.Provider value={{ rules, setRules, click, setClick }} >
+        <AppContext.Provider value={{ filters, setFilters, handleClick }} >
             {children}
         </AppContext.Provider>
     )

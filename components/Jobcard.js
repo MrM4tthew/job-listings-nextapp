@@ -6,7 +6,16 @@ import { AppContext } from "../context/state";
 const Jobcard = (props) => {
     const { data } = props;
 
-    const { rules, click, setRules, setClick } = useContext(AppContext);
+    const { filters, setFilters, handleClick } = useContext(AppContext);
+
+    const tags = [data.role, data.level]
+
+    if (data.tools) {
+        tags.push(...data.tools)
+    }
+    if (data.languages) {
+        tags.push(...data.languages)
+    }
 
     return (
         <div className={styles.container}>
@@ -30,36 +39,10 @@ const Jobcard = (props) => {
             </div>
             <div className={styles.rightContainer}>
                 <div className={styles.typesContainer}>
-                    <span
-                        onClick={() => {
-                            if (!click.includes("role")) {
-                                setRules([...rules, data.role]);
-                                setClick([...click, "role"])
-                            }
-                        }}
-                    >
-                        {data.role}
-                    </span>
-                    <span onClick={() => {
-                        if (!click.includes("level")) {
-                            setRules([...rules, data.level])
-                            setClick([...click, "level"])
-                        }
-
-                    }}>
-                        {data.level}
-                    </span>
-                    {data.languages.map((dl, index) => {
+                    {tags.map((dl, index) => {
                         return (
                             <span
-                                onClick={() => {
-                                    if (!rules.includes(dl)) {
-                                        setRules([...rules, dl]);
-                                        // if (!click.includes("rule")) {
-                                        setClick([...click, "rule"])
-                                        // }
-                                    }
-                                }}
+                                onClick={() => handleClick(dl)}
                                 key={index}
                             >
                                 {dl}

@@ -12,74 +12,26 @@ import { AppContext } from "../context/state"
 
 export default function Home() {
 
-  const { rules, setRules, click } = useContext(AppContext)
+  const { filters, setFilters, handleClick } = useContext(AppContext)
 
-  // const firstArr = rules[0]
-  // const secondArr = rules[1]
-  const thirdArr = rules[2]
+  console.log(filters.length)
 
-  // console.log(click.filter(data => data == "rule").length)
+  console.log(filters)
 
-  let count = 0;
-  const ruleCount = click.filter(data => data == "rule").length
+  const filterFunction = ({ role, level, languages, tools }) => {
+    const tags = [role, level]
 
-  console.log(click)
-
-  function checkReq(data) {
-    // check role first
-    if (click.includes("role") && click.indexOf("role") == 0) {
-      //  if next to role is level
-      if (click.includes("level")) {
-        // if next to level is rule
-        if (click.includes("rule")) {
-
-          while (count < ruleCount) {
-            count++
-          }
-
-          if (data.role == rules[0] && data.level == rules[1] && data.languages.includes(rules[1 + count])) {
-            return data
-          }
-
-          // // const func = () => { data.languages.include(rules[2 + count]) }
-          console.log(count)
-
-        }
-        // no data next to level
-        else if (data.role == rules[0] && data.level == rules[1]) {
-          return data
-        }
-      }
-      // no data next to it
-      else if (data.role == rules[0]) {
-        return data
-      }
-
+    if (tools) {
+      tags.push(...tools);
     }
-    // check level first 
-    else if (click.includes("level") && click.indexOf("level") == 0) {
-      if (click.includes("role")) {
-        if (data.level == rules[0] && data.role == rules[1]) {
-          return data
-        }
-      }
-      else if (data.level == rules[0]) {
-        return data
-      }
+    if (languages) {
+      tags.push(...languages);
+    }
 
-    }
-    // check language first
-    else if (click.includes("rule") && click.indexOf("rule") == 0) {
-      if (data.languages.includes(rules[0])) {
-        return data
-      }
-    }
-    // else if (click.includes("role") && click.includes("level")) {
-    //   if (data.role == firstArr && data.level == secondArr) {
-    //     return data
-    //   }
-    // }
+    return filters.every((filter) => tags.includes(filter))
   }
+
+  const filteredPosition = datas.filter(filterFunction)
 
   return (
     <div className={styles.container}>
@@ -96,9 +48,7 @@ export default function Home() {
       <main className={styles.main}>
 
         <div className={styles.jobsContainer}>
-          {/* <Jobcard data={data.id} key={index} />; */}
-          {/* <Jobcard /> */}
-          {click.length > 0 ? datas.filter(checkReq).map((data, index) => {
+          {filters.length > 0 ? filteredPosition.map((data, index) => {
             return <Jobcard data={data} key={index} />;
           })
             :
@@ -106,20 +56,11 @@ export default function Home() {
               return <Jobcard data={data} key={index} />;
             })
           }
-          {/* {datas.filter(item => {
-            return (
-              // if (click.includes("role")) {
-              click.includes("role") ? item.role == firstArr : item.level == firstArr
-              // }
-              // else if (click.includes("level")) {
-              //   item.level == firstArr
-              // }
-              // item.role == firstArr
-            )
-          }
-          ).map((data, index) => {
-            return <Jobcard data={data} key={index} />;
-          })} */}
+          {/* {
+            datas.map((data, index) => {
+              return <Jobcard data={data} key={index} />;
+            })
+          } */}
         </div>
       </main>
 
