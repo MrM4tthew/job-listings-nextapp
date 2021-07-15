@@ -1,0 +1,61 @@
+@import "variables";
+
+.container {
+  position: absolute;
+  top: 120px;
+  left: 0;
+  right: 0;
+  max-width: 1040px;
+  margin: 0px auto;
+  height: 60px;
+  width: calc(100% - 5rem);
+  background-color: white;
+  box-shadow: 1px 10px 10px 4px
+    rgba($color: $desaturated-dark-cyan, $alpha: 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  .filterBox {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    span {
+      color: $desaturated-dark-cyan;
+      font-weight: 700;
+      font-size: 0.7rem;
+    }
+
+    @keyframes getIn {
+      0% {
+        opacity: 0;
+        transform: translateX(5px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(0px);
+      }
+    }
+
+    .filter {
+      padding: 10px 10px;
+      background: $light-grayish-cyanT;
+      animation: getIn 400ms;
+
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
+
+    .clear {
+      margin-left: auto;
+      text-decoration: underline;
+    }
+  }
+
+  &.active {
+    opacity: 1;
+    transition: 300ms opacity;
+  }
+}
