@@ -26,6 +26,13 @@
     max-width: 1040px;
     width: calc(100% - 5rem);
     margin: 30px auto;
-    margin-top: 60px;
+    margin-top: 40px;
+
+    @media screen and (max-width: $almost-mobile) {
+      margin-top: 60px;
+    }
+    @media screen and (max-width: $mobile) {
+      width: calc(100% - 2rem);
+    }
   }
 }

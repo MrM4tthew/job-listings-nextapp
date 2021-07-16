@@ -6,7 +6,7 @@ import { AppContext } from "../context/state";
 const Jobcard = (props) => {
     const { data } = props;
 
-    const { filters, setFilters, handleClick } = useContext(AppContext);
+    const { handleClick, filters } = useContext(AppContext);
 
     const tags = [data.role, data.level]
 
@@ -19,6 +19,12 @@ const Jobcard = (props) => {
 
     return (
         <div className={styles.container}>
+            {data.featured == true ?
+                <div className={styles.featuredBookmark}></div>
+                :
+                ""
+            }
+
             <div className={styles.leftContainer}>
                 <div className={styles.imgContainer}>
                     <img src={data.logo} alt="" />
@@ -26,6 +32,23 @@ const Jobcard = (props) => {
                 <div className={styles.descriptionContainer}>
                     <div className={styles.jobnameContainer}>
                         <span>{data.company}</span>
+                        {data.featured == true && data.new == true
+                            ?
+                            <>
+                                <span className={`${styles.new} ${styles.roundInfo}`}>NEW!</span>
+                                <span className={`${styles.featured} ${styles.roundInfo}`}>FEATURED</span>
+                            </>
+                            :
+                            data.new == true
+                                ?
+                                <span className={`${styles.new} ${styles.roundInfo}`}>NEW!</span>
+                                :
+                                data.featured == true
+                                    ?
+                                    <span className={`${styles.featured} ${styles.roundInfo}`}>FEATURED</span>
+                                    :
+                                    ""
+                        }
                     </div>
                     <span className={styles.position}>{data.position}</span>
                     <div className={styles.extraDescriptions}>

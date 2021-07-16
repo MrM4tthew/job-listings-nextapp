@@ -10,9 +10,18 @@ export function AppWrapper({ children }) {
         setFilters([...filters, tag])
     }
 
+    const deleteAllClick = () => {
+        setFilters([])
+    }
+
+    const deleteClick = (getData) => {
+        const data = filters.filter(filter => !(filter == getData))
+        setFilters(data)
+    }
+
 
     return (
-        <AppContext.Provider value={{ filters, setFilters, handleClick }} >
+        <AppContext.Provider value={{ filters, setFilters, handleClick, deleteAllClick, deleteClick }} >
             {children}
         </AppContext.Provider>
     )

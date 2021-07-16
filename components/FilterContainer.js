@@ -5,18 +5,26 @@ import { AppContext } from '../context/state'
 
 const FilterContainer = () => {
 
-    const { filters, setFilters } = useContext(AppContext)
+    const { filters, deleteAllClick, deleteClick } = useContext(AppContext)
 
     return (
-        <div className={filters.length == 0 ? styles.container : `${styles.container} ${styles.active}`}>
+        <div className={filters.length == 0 ? `${styles.container}` : `${styles.container} ${styles.active}`}>
             <div className={styles.filterBox}>
-                {filters.map((filter, index) => {
-                    return (
-                        <span className={styles.filter} key={index}>{filter}</span>
-                    )
-                })}
+                <div className={styles.leftFilter}>
+                    {filters.map((filter, index) => {
+                        return (
+                            <div className={styles.filterContainer} key={index}>
+                                <span className={styles.filter}>{filter}</span>
+                                <span className={styles.delete} onClick={() => deleteClick(filter)}>x</span>
+                            </div>
 
-                <span className={styles.clear}>Clear</span>
+                        )
+                    })}
+                </div>
+                <div className={styles.rightFilter}>
+                    <span className={styles.clear} onClick={deleteAllClick}>Clear</span>
+                </div>
+
             </div>
         </div>
     )

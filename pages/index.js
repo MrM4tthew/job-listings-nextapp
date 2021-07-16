@@ -12,11 +12,7 @@ import { AppContext } from "../context/state"
 
 export default function Home() {
 
-  const { filters, setFilters, handleClick } = useContext(AppContext)
-
-  console.log(filters.length)
-
-  console.log(filters)
+  const { filters } = useContext(AppContext)
 
   const filterFunction = ({ role, level, languages, tools }) => {
     const tags = [role, level]
@@ -30,6 +26,17 @@ export default function Home() {
 
     return filters.every((filter) => tags.includes(filter))
   }
+
+  const tags = [datas.role, datas.level]
+
+  if (datas.tools) {
+    tags.push(...datas.tools);
+  }
+  if (datas.languages) {
+    tags.push(...datas.languages);
+  }
+
+  // console.log(filters.every((filter) => tags.includes(filter)))
 
   const filteredPosition = datas.filter(filterFunction)
 

@@ -2,6 +2,7 @@
 
 .container {
   display: flex;
+  align-items: center;
   padding: 25px 35px;
   background-color: white;
   box-sizing: border-box;
@@ -9,16 +10,62 @@
   box-shadow: 1px 10px 10px 4px
     rgba($color: $desaturated-dark-cyan, $alpha: 0.15);
   border-radius: 5px;
+  position: relative;
+
+  @media screen and (max-width: $almost-mobile) {
+    flex-direction: column;
+    height: 100%;
+    align-items: initial;
+    margin-bottom: 50px;
+    padding: 15px 20px;
+    padding-top: 40px;
+  }
+
+  .featuredBookmark {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    height: 100%;
+    background-color: $desaturated-dark-cyan;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
   .leftContainer {
     min-width: 330px;
     margin-right: 20px;
+    height: 90px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
+
+    @media screen and (max-width: $almost-mobile) {
+      flex-direction: column;
+      align-items: initial;
+      min-width: initial;
+      width: 100%;
+      height: 120px;
+      &::after {
+        content: "";
+        background: rgba($color: #000000, $alpha: 0.15);
+        width: 100%;
+        height: 2px;
+        margin: 15px 0px;
+      }
+    }
+
     .imgContainer {
       width: 20%;
       img {
         width: 100%;
+      }
+
+      @media screen and (max-width: $almost-mobile) {
+        width: 60px;
+        position: absolute;
+        top: -70px;
       }
     }
     .descriptionContainer {
@@ -28,11 +75,40 @@
       flex-direction: column;
       justify-content: space-between;
 
+      @media screen and (max-width: $almost-mobile) {
+        width: 100%;
+      }
       .jobnameContainer {
         display: flex;
+        align-items: center;
         font-weight: 700;
         color: $desaturated-dark-cyan;
         font-size: 0.8rem;
+
+        span:not(:last-child) {
+          margin-right: 9px;
+        }
+
+        span:first-child {
+          margin-right: 16px;
+        }
+
+        .roundInfo {
+          color: white;
+          font-weight: 700;
+          padding: 7px 9px;
+          border-radius: 100px;
+          font-size: 0.6rem;
+          line-height: -10px;
+        }
+
+        .new {
+          background-color: $desaturated-dark-cyan;
+        }
+
+        .featured {
+          background-color: $very-dark-grayish-cyan;
+        }
       }
 
       .position {
@@ -41,17 +117,17 @@
 
       .extraDescriptions {
         display: flex;
-        width: 90%;
+        width: 100%;
         span {
           color: gray;
-          font-size: 0.83rem;
+          font-size: 0.7rem;
           &:nth-child(odd) {
             width: auto;
           }
           &:nth-child(even) {
             width: 2px;
             height: 2px;
-            margin: auto;
+            margin: auto 10px;
             border-radius: 100%;
             background-color: gray;
           }
@@ -64,6 +140,10 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    @media screen and (max-width: $almost-mobile) {
+      width: 100%;
+      justify-content: flex-start;
+    }
     .typesContainer {
       display: flex;
       align-items: center;
@@ -76,11 +156,19 @@
         font-weight: 700;
         padding: 10px;
         font-size: 0.7rem;
+        cursor: pointer;
+        transition: 100ms;
 
         &:not(:last-child) {
           margin-right: 10px;
         }
         margin-bottom: 10px;
+      }
+
+      span:hover {
+        background: black;
+        color: white;
+        transition: 150ms;
       }
     }
   }
